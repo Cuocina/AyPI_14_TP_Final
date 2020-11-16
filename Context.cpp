@@ -1,7 +1,10 @@
 #include "Context.h" 
+
 using namespace UContext;
 using namespace UUser;
+
 UUser::User* uniqueInstance = UUser::CreateUser("nickname");
+
 // Precondicion: Ninguna
 // Postcondicion: Obtiene el usuario actual.
 // Para la entrega actual debe crear un unico usuario

@@ -1,8 +1,9 @@
-#include "DateTime.h"
 #include <string>
 #include <iostream>
 #include <ctime>
 #include <conio.h>
+#include "DateTime.h"
+
 using namespace UDateTime;
 using namespace std;
 
@@ -127,13 +128,13 @@ unsigned int UDateTime::GetSeconds(const DateTime* dateTime) {
 // - YYMD_hms: 19-4-27 7:1:10 p.m.
 // - DMYY_hms: 27-4-19 7:1:10 p.m.
 // - DMYY_Hms: 27-4-19 19:1:10
-string UDateTime::ToFormat(const DateTime* dateTime, DateTimeFormat format) {
+string UDateTime::ToFormat(const UDateTime::DateTime* dateTime, UDateTime::DateTimeFormat format) {
 	string formattedDate;
 	int auxHour = dateTime->hour;
 	string auxYear = to_string(dateTime->year);
 	auxYear = auxYear.substr(auxYear.length() - 2, 3);
 	switch (format) {
-	case DateTimeFormat::YYYYMMDD_HHmmss://YYYYMMDD_HHmmss: 2019-04-27 19:01:10
+	case YYYYMMDD_HHmmss://YYYYMMDD_HHmmss: 2019-04-27 19:01:10
 		formattedDate = to_string(dateTime->year) + "-";
 		formattedDate += AddZero(dateTime->month) + to_string(dateTime->month) + "-";
 		formattedDate += AddZero(dateTime->day) + to_string(dateTime->day) + " ";
@@ -141,7 +142,7 @@ string UDateTime::ToFormat(const DateTime* dateTime, DateTimeFormat format) {
 		formattedDate += AddZero(dateTime->minutes) + to_string(dateTime->minutes) + ":";
 		formattedDate += AddZero(dateTime->seconds) + to_string(dateTime->seconds);
 		break;
-	case DateTimeFormat::YYYYMMDD_hhmmss://YYYYMMDD_hhmmss: 2019 - 04 - 27 07 : 01 : 10 p.m.
+	case YYYYMMDD_hhmmss://YYYYMMDD_hhmmss: 2019 - 04 - 27 07 : 01 : 10 p.m.
 		formattedDate = to_string(dateTime->year) + " - ";
 		formattedDate += AddZero(dateTime->month) + to_string(dateTime->month) + " - ";
 		formattedDate += AddZero(dateTime->day) + to_string(dateTime->day) + " ";
@@ -150,7 +151,7 @@ string UDateTime::ToFormat(const DateTime* dateTime, DateTimeFormat format) {
 		formattedDate += AddZero(dateTime->seconds) + to_string(dateTime->seconds) + " ";
 		formattedDate += (IsBeforeMidday(dateTime->hour)) ? "a.m." : "p.m.";
 		break;
-	case DateTimeFormat::DDMMYYYY_hhmmss://DDMMYYYY_hhmmss: 27-04-2019 07:01:10 p.m.
+	case DDMMYYYY_hhmmss://DDMMYYYY_hhmmss: 27-04-2019 07:01:10 p.m.
 		formattedDate = AddZero(dateTime->day) + to_string(dateTime->day) + "-";
 		formattedDate += AddZero(dateTime->month) + to_string(dateTime->month) + "-";
 		formattedDate = to_string(dateTime->year) + " ";
@@ -159,7 +160,7 @@ string UDateTime::ToFormat(const DateTime* dateTime, DateTimeFormat format) {
 		formattedDate += AddZero(dateTime->seconds) + to_string(dateTime->seconds) + " ";
 		formattedDate += (IsBeforeMidday(dateTime->hour)) ? "a.m." : "p.m.";
 		break;
-	case DateTimeFormat::DDMMYYYY_HHmmss://DDMMYYYY_HHmmss: 27-04-2019 19:01:10
+	case DDMMYYYY_HHmmss://DDMMYYYY_HHmmss: 27-04-2019 19:01:10
 		formattedDate = AddZero(dateTime->day) + to_string(dateTime->day) + "-";
 		formattedDate += AddZero(dateTime->month) + to_string(dateTime->month) + "-";
 		formattedDate = to_string(dateTime->year) + " ";
@@ -167,7 +168,7 @@ string UDateTime::ToFormat(const DateTime* dateTime, DateTimeFormat format) {
 		formattedDate += AddZero(dateTime->minutes) + to_string(dateTime->minutes) + ":";
 		formattedDate += AddZero(dateTime->seconds) + to_string(dateTime->seconds) + " ";
 		break;
-	case DateTimeFormat::YYYYMMDDHHmmss://YYYYMMDDHHmmss: 20190427191410
+	case YYYYMMDDHHmmss://YYYYMMDDHHmmss: 20190427191410
 		formattedDate = to_string(dateTime->year);
 		formattedDate += AddZero(dateTime->month) + to_string(dateTime->month);
 		formattedDate += AddZero(dateTime->day) + to_string(dateTime->day);
@@ -175,14 +176,14 @@ string UDateTime::ToFormat(const DateTime* dateTime, DateTimeFormat format) {
 		formattedDate += AddZero(dateTime->minutes) + to_string(dateTime->minutes);
 		formattedDate += AddZero(dateTime->seconds) + to_string(dateTime->seconds);
 		break;
-	case DateTimeFormat::YYMD_Hms://YYMD_Hms: 19-4-27 19:1:10
+	case YYMD_Hms://YYMD_Hms: 19-4-27 19:1:10
 		formattedDate = auxYear + "-" + to_string(dateTime->month) + "-";
 		formattedDate += to_string(dateTime->day) + " ";
 		formattedDate += to_string(dateTime->hour) + ":";
 		formattedDate += to_string(dateTime->minutes) + ":";
 		formattedDate += to_string(dateTime->seconds);
 		break;
-	case DateTimeFormat::YYMD_hms://YYMD_hms: 19-4-27 7:1:10 p.m.
+	case YYMD_hms://YYMD_hms: 19-4-27 7:1:10 p.m.
 		formattedDate = auxYear + "-" + to_string(dateTime->month) + "-";
 		formattedDate += to_string(dateTime->day) + " ";
 		formattedDate += to_string(AddHour(dateTime->hour, auxHour));
@@ -190,7 +191,7 @@ string UDateTime::ToFormat(const DateTime* dateTime, DateTimeFormat format) {
 		formattedDate += ":" + to_string(dateTime->seconds);
 		formattedDate += (IsBeforeMidday(dateTime->hour)) ? "a.m." : "p.m.";
 		break;
-	case DateTimeFormat::DMYY_hms://DMYY_hms: 27-4-19 7:1:10 p.m.
+	case DMYY_hms://DMYY_hms: 27-4-19 7:1:10 p.m.
 		formattedDate += to_string(dateTime->day) + "-";
 		formattedDate += to_string(dateTime->month) + "-";
 		formattedDate += auxYear + " ";
@@ -199,7 +200,7 @@ string UDateTime::ToFormat(const DateTime* dateTime, DateTimeFormat format) {
 		formattedDate += ":" + to_string(dateTime->seconds);
 		formattedDate += (IsBeforeMidday(dateTime->hour)) ? "a.m." : "p.m.";
 		break;
-	case DateTimeFormat::DMYY_Hms://DMYY_Hms: 27-4-19 19:1:10
+	case DMYY_Hms://DMYY_Hms: 27-4-19 19:1:10
 		formattedDate += to_string(dateTime->day) + "-";
 		formattedDate += to_string(dateTime->month) + "-";
 		formattedDate += auxYear + " ";

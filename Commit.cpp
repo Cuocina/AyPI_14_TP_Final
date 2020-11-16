@@ -1,10 +1,10 @@
-#include "Commit.h"
 #include "Context.h"
 #include "DateTime.h"
 #include "User.h"
 #include <string>
 #include <ctime>
 #include <random>
+#include "Commit.h"
 
 using namespace UGit;
 using namespace UContext;
@@ -13,7 +13,7 @@ using namespace UUser;
 using namespace std;
 
 struct UGit::Commit {
-	Commit* parent;
+	UGit::Commit* parent;
 	string message;
 	string hashCode;
 	UDateTime::DateTime* context;
@@ -88,6 +88,6 @@ string UGit::GetShortHashCode(const Commit* commit) {//8
 void UGit::DestroyCommit(Commit* commit) {
 	if (commit->message != "") {
 		delete commit;
-		commit->message = "";
+		
 	}
 }
