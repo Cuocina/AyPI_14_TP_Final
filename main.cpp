@@ -11,7 +11,7 @@ using UDateTime::ToFormat;
 using UUser::User;
 
 struct Branch {
-	UGit::Commit* lastCommit;
+	Commit* lastCommit;
 };
 
 void AddCommits(Branch* branch);
