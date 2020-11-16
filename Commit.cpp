@@ -6,14 +6,14 @@
 #include <ctime>
 #include <random>
 
-using Commit::UGit;
+using namespace UGit;
 using namespace UContext;
 using namespace UDateTime;
 using namespace UUser;
 using namespace std;
 
 struct UGit::Commit {
-	UGit::Commit* parent;
+	Commit* parent;
 	string message;
 	string hashCode;
 	UDateTime::DateTime* context;
